@@ -1,0 +1,17 @@
+message,severity
+"Payment API timeout and downstream billing service unavailable",Critical
+"Database connection pool exhausted during peak traffic",Critical
+"API gateway returning high error rate in production",Critical
+"Service crash loop detected in production pod",Critical
+"Kafka consumer lag increasing for order events",High
+"Authentication service returning intermittent 500 errors",High
+"Search endpoint p95 latency above threshold",High
+"Disk space nearly full on production node",High
+"User profile page loading slowly for some users",Medium
+"Email notification delay observed for password reset",Medium
+"Cache miss rate increased after deployment",Medium
+"Scheduled batch job completed ten minutes late",Medium
+"Minor UI alignment issue on settings screen",Low
+"Typo found in confirmation message",Low
+"Documentation link broken in help page",Low
+"One customer reports duplicate receipt",Low
