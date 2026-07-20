@@ -224,3 +224,69 @@ So the project is about **turning an AI model into an enterprise-ready AI servic
 **I am building a research prototype that takes a small AI model for incident severity prediction and studies how it can be exposed through APIs, scaled under traffic, monitored, versioned, and safely rolled out in an enterprise environment.**
 
 That is the connection between AI, API integration, and AI scaling.
+
+
+## Week 3: Scaling AI APIs with Async Processing and Canary Rollout
+
+In Week 3, I extended the AI API prototype from model versioning and shadow deployment into a more scalable enterprise-style service. The focus was on asynchronous prediction processing, canary rollout, and operational monitoring.
+
+### Objective
+
+The goal of Week 3 was to evaluate how enterprise AI services can handle higher request volume while safely routing a small percentage of production traffic to a newer model version.
+
+### Features Added
+
+- Synchronous prediction endpoint
+- Asynchronous prediction endpoint
+- Async job status retrieval
+- Queue status endpoint
+- Canary rollout configuration
+- Model v1/v2 routing
+- Shadow prediction support
+- Monitoring metrics endpoint
+- Basic load test script
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/predict` | POST | Runs synchronous prediction |
+| `/predict/async` | POST | Submits prediction request to async queue |
+| `/predict/async/{job_id}` | GET | Gets async job status and prediction result |
+| `/queue/status` | GET | Returns queue size and worker status |
+| `/metrics` | GET | Returns operational metrics |
+| `/rollout/config` | GET | Returns rollout configuration |
+| `/rollout/config` | POST | Updates rollout configuration |
+
+### Canary Rollout
+
+The Week 3 rollout configuration allows a controlled percentage of traffic to be routed to model v2 while model v1 remains the active model.
+
+Example configuration:
+
+```json
+{
+  "active_model": "v1",
+  "shadow_enabled": true,
+  "canary_enabled": true,
+  "canary_model": "v2",
+  "canary_percent": 10
+}
+
+This means most requests continue using model v1, while a small percentage of requests are routed to model v2.
+
+Load Test Result
+
+A basic load test was executed with 50 synchronous requests and 50 asynchronous requests.
+
+Summary:
+
+Total requests: 100
+Sync requests: 50
+Async requests: 50
+Failed requests: 0
+Model v1 requests: 92
+Model v2 requests: 8
+Queue size after processing: 0
+
+The result shows that the API successfully handled both synchronous and asynchronous prediction requests while routing a portion of traffic to model v2 through canary rollout.
